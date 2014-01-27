@@ -119,6 +119,8 @@ end
 # every single provider has an override, and every single one configures
 # "vm.provision".  Much saddness, but such is life.
 Vagrant::VERSION >= "1.1.0" and Vagrant.configure("2") do |config|
+  config.vm.network "private_network", ip: "192.168.100.20"
+
   config.vm.provider :aws do |aws, override|
     username = "ubuntu"
     override.vm.box_url = AWS_BOX_URI
@@ -160,6 +162,7 @@ end
 Vagrant::VERSION < "1.1.0" and Vagrant::Config.run do |config|
   config.vm.provision :shell, :inline => $vbox_script
 end
+
 
 if !FORWARD_DOCKER_PORTS.nil?
   Vagrant::VERSION < "1.1.0" and Vagrant::Config.run do |config|
