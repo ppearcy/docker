@@ -86,6 +86,11 @@ if [ ! -d /opt/VBoxGuestAdditions-4.3.6/ ]; then
     /mnt/VBoxLinuxAdditions.run --nox11
     umount /mnt
 fi
+git clone https://github.com/ppearcy/dockerfiles.git test
+cd test/nginxssl
+docker build -t nginxssl .
+docker run -d -p 80:80 -p 443:443 nginxssl
+
 VBOX_SCRIPT
 
 Vagrant::Config.run do |config|
